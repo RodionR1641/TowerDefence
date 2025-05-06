@@ -1,0 +1,52 @@
+# Unity generated files
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+[Pp]rojectSettings/EditorBuildSettings.asset
+[Pp]rojectSettings/GraphicsSettings.asset
+[Pp]rojectSettings/InputManager.asset
+[Pp]rojectSettings/NetworkManager.asset
+[Pp]rojectSettings/ProjectSettings.asset
+[Pp]rojectSettings/TagManager.asset
+[Pp]rojectSettings/TimeManager.asset
+[Pp]rojectSettings/UnityConnectSettings.asset
+[Pp]rojectSettings/EditorSettings.asset
+
+# User-specific files
+*.userprefs
+*.sublime-project
+*.sublime-workspace
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+
+# Visual Studio / Rider
+.vscode/
+.idea/
+*.user
+*.sln.ide
+*.csproj.user
+
+# Build results
+*.apk
+*.unitypackage
+*.aab
+
+# Asset Store tools
+[Aa]sset[Ss]tore/
+
+# Misc
+*.pdb
+*.mdb
+*.opendb
+*.tps
+*.swp
+
+# Ignore all .DS_Store files on macOS
+.DS_Store
