@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
     double health = 100;
     UnityEngine.AI.NavMeshAgent agent; 
     public System.Action<EnemyController> OnEnemyDied; //use this to tell gameloop about this enemy dying
+    [SerializeField] private int deathReward = 2;
+    [SerializeField] private int baseDamage = 1; //how much the enemy damages the base if it gets there
 
     // Use this for initialization 
     void Start () 
@@ -27,7 +29,8 @@ public class EnemyController : MonoBehaviour
             else 
             { 
                 // attack the base code here
-                Destroy(gameObject); 
+                GameStats.Instance.ChangeHealth(-baseDamage);
+                Die(); 
             } 
         }
     }
@@ -38,6 +41,8 @@ public class EnemyController : MonoBehaviour
         healthBar.SetHealth((int)health, 100);
         if(health<=0) 
         { 
+            GameStats.Instance.ChangeMoney(deathReward);//money for killing the enemy
+            Debug.Log($"Got reward of {deathReward}");
             Die(); 
         }
     }

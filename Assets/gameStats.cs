@@ -1,0 +1,56 @@
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+
+// Class responsible for the base health and economy mechanics. It is a singleton
+public class GameStats : MonoBehaviour
+{
+    [SerializeField] private int baseHealth = 25;
+    [SerializeField] private int currentMoney = 10;//enough for 1 basic turret
+    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private TextMeshProUGUI healthText;
+
+    private static GameStats _instance;
+    public static GameStats Instance {get {return _instance;}}
+
+
+    private void Start()
+    {
+        moneyText.SetText($"£{currentMoney}");
+        healthText.SetText($"Heart {baseHealth}");
+
+    }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
+
+    //function that can either increase or decrease the current income
+    //get money for killing enemies and completing waves
+    public void ChangeMoney(int money){
+        currentMoney += money;
+        moneyText.SetText($"$ {currentMoney}");
+    }
+
+    public int GetCurrentMoney(){
+        return currentMoney;
+    }
+
+    public void ChangeHealth(int health){
+        baseHealth += health;
+        healthText.SetText($"Health {baseHealth}");
+    }
+
+    public int GetBaseHealth(){
+        return baseHealth;
+    }
+
+}

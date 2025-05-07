@@ -1,0 +1,38 @@
+control_schemes:
+  - name: KeyboardMouse
+    based_on: None
+
+actions:
+  - name: Move
+    type: Value
+    expected_control_type: Vector2
+    processors: 
+    interactions:
+    bindings:
+      - path: <Keyboard>/w
+        modifiers: 
+        offset: 1
+      - path: <Keyboard>/s
+        modifiers: 
+        offset: 1
+        invert: true
+      - path: <Keyboard>/a
+        modifiers: 
+        offset: 0
+      - path: <Keyboard>/d
+        modifiers: 
+        offset: 0
+        invert: true
+
+  - name: Look
+    type: Value
+    expected_control_type: Vector2
+    processors: scaleVector2(x=0.1,y=0.1)
+    interactions:
+    bindings:
+      - path: <Mouse>/delta
+
+  - name: Jump
+    type: Button
+    bindings:
+      - path: <Keyboard>/space

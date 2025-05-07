@@ -14,6 +14,7 @@ public class TurretController : MonoBehaviour
     [SerializeField] float laserWidth = 1f;
     [SerializeField] int weaponDamage = 50;
     [SerializeField] LayerMask enemyLayer;
+    [SerializeField] int turretType = 0; //turret type is just for denoting that this is e.g. a laser turret
 
     public float rotationSpeed=10000.0f;
     private Transform target;
@@ -54,7 +55,7 @@ public class TurretController : MonoBehaviour
     }
 
     void FindNearestEnemy(){
-        EnemyController[] enemies = GameObject.FindObjectsOfType<EnemyController>();
+        EnemyController[] enemies = FindObjectsOfType<EnemyController>();
 
         float shortestDistance = Mathf.Infinity;
         EnemyController nearestEnemy = null;
@@ -98,6 +99,10 @@ public class TurretController : MonoBehaviour
                 hit.collider.GetComponent<EnemyController>().TakeDamage(weaponDamage);
             }
         }
+    }
+
+    public int GetTurretType(){
+        return turretType;
     }
 
 }

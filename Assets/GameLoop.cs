@@ -10,7 +10,7 @@ public class GameLoop : MonoBehaviour
 
     public int numWaves = 5;
 
-    private int currentWave = 1;
+    private int currentWave = 0;
 
     private float waveCooldown = 2f; //cooldown between waves
 
@@ -32,7 +32,8 @@ public class GameLoop : MonoBehaviour
             { "minEnemies", 5 },
             { "maxEnemies", 10 },
             { "spawnRate", 5 },
-            { "enemySpeed", 3 }
+            { "enemySpeed", 3 },
+            { "waveCompletionReward", 5}
         });
 
         enemyWaves.Add(new Dictionary<string, float>
@@ -40,7 +41,8 @@ public class GameLoop : MonoBehaviour
             { "minEnemies", 10 },
             { "maxEnemies", 15 },
             { "spawnRate", 5 },
-            { "enemySpeed", 3 }
+            { "enemySpeed", 3 },
+            { "waveCompletionReward", 10}
         });
 
         enemyWaves.Add(new Dictionary<string, float>
@@ -48,7 +50,8 @@ public class GameLoop : MonoBehaviour
             { "minEnemies", 15 },
             { "maxEnemies", 20 },
             { "spawnRate", 4 },
-            { "enemySpeed", 4 }
+            { "enemySpeed", 4 },
+            { "waveCompletionReward", 5}
         });
 
         enemyWaves.Add(new Dictionary<string, float>
@@ -56,7 +59,8 @@ public class GameLoop : MonoBehaviour
             { "minEnemies", 20 },
             { "maxEnemies", 23 },
             { "spawnRate", 3 },
-            { "enemySpeed", 4 }
+            { "enemySpeed", 4 },
+            { "waveCompletionReward", 15}
         });
 
         enemyWaves.Add(new Dictionary<string, float>
@@ -64,7 +68,8 @@ public class GameLoop : MonoBehaviour
             { "minEnemies", 23 },
             { "maxEnemies", 26 },
             { "spawnRate", 3 },
-            { "enemySpeed", 4.5f }
+            { "enemySpeed", 4.5f },
+            { "waveCompletionReward", 10}
         });
     }
 
@@ -81,7 +86,10 @@ public class GameLoop : MonoBehaviour
             //wait for all enemies to die before starting next wave
             yield return new WaitUntil(() => activeEnemies.Count == 0);
 
-            Debug.Log($"WAVES: Wave {currentWave} completed!");
+            Debug.Log($"WAVES: Wave {currentWave+1} completed!");
+
+            //receive money for completing the wave
+            GameStats.Instance.ChangeMoney((int)enemyWaves[currentWave]["waveCompletionReward"]);
 
             //make sure there is time for the player to prepare for the next wave
             yield return new WaitForSeconds(waveCooldown);
@@ -122,6 +130,7 @@ public class GameLoop : MonoBehaviour
     //a way to link the enemy dying code of Enemy class and wave manager
     void HandleEnemyDeath(EnemyController enemy){
         enemy.OnEnemyDied -= HandleEnemyDeath; //unscubscribe
+        Debug.Log("WAVES: Removing enemy");
         activeEnemies.Remove(enemy);
     }
 }
