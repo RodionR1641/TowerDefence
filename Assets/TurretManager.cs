@@ -46,22 +46,15 @@ public class TurretManager : MonoBehaviour
                 turretRangeIndicator.SetActive(true);
                 UpdateTurretColor(isValid);
 
-                /*
-                decalProjector.gameObject.SetActive(true);
-                decalProjector.transform.position = hitInfo.point;
-                decalProjector.material.color = isValid ? Color.green : Color.red;
-                */
                 //need to finalise the position of tower - and check if we have a hit info
                 if(Input.GetMouseButtonDown(0) && isValid)
                 {
                     Debug.Log("Placed Turret");
                     PlaceTurret();
-                    //decalProjector.gameObject.SetActive(false);
                 }
             }
             else{
                 turretRangeIndicator.SetActive(false);
-                //decalProjector.gameObject.SetActive(false);
             }
         }   
     }
@@ -125,13 +118,6 @@ public class TurretManager : MonoBehaviour
         currentTurretRangeRenderer = turretController.GetRangeIndicator().GetComponent<Renderer>();
         
         chosenTurretType = turretController.GetTurretType();
-        
-        /*
-        Vector3 newDecalSize = decalProjector.size;
-        newDecalSize.x = range*2;//diameter
-        newDecalSize.z = range*2;
-        decalProjector.size = newDecalSize;
-        */
     }
 }
 
