@@ -21,6 +21,7 @@ public class LaserController: TurretController
         rangeIndicator.SetActive(false);
 
         turretType = 0;
+        summonCost = 12;
     }
 
     // Update is called once per frame

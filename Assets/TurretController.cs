@@ -17,12 +17,14 @@ public class TurretController : MonoBehaviour
     public float rotationSpeed=10000.0f;
     protected Transform target;
     protected bool placed = false;
+    protected int summonCost = 10;
+    protected float shortestDistance;
 
 
     public void FindNearestEnemy(){
         EnemyController[] enemies = FindObjectsOfType<EnemyController>();
 
-        float shortestDistance = Mathf.Infinity;
+        shortestDistance = Mathf.Infinity;
         EnemyController nearestEnemy = null;
 
         foreach (EnemyController enemy in enemies)
@@ -57,5 +59,8 @@ public class TurretController : MonoBehaviour
 
     public void PlaceTurret(){
         placed = true;
+    }
+    public int GetSummonCost(){
+        return summonCost;
     }
 }

@@ -18,12 +18,12 @@ public class TurretManager : MonoBehaviour
     [SerializeField] private Material validMaterial;
     [SerializeField] private Material invalidMaterial;
     private GameObject turret; //the current turret selected
-    private int summonCost = 10;
     private Renderer currentTurretRenderer;
     private Renderer currentTurretRangeRenderer;
     private int chosenTurretType = 0;//responsible for keeping track of the turret prefab type e.g. laser
     private TurretController turretController = null;
     private GameObject turretRangeIndicator = null;
+    private int summonCost = 0;
 
     void Start()
     {
@@ -118,11 +118,10 @@ public class TurretManager : MonoBehaviour
         currentTurretRangeRenderer = turretController.GetRangeIndicator().GetComponent<Renderer>();
         
         chosenTurretType = turretController.GetTurretType();
+        Debug.Log($"Turret type = {chosenTurretType}");
+        summonCost = turretController.GetSummonCost();
     }
 }
-
-
-
 
 
 /*
