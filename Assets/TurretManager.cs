@@ -96,7 +96,7 @@ public class TurretManager : MonoBehaviour
                 Debug.Log("Turret collider set");
                 turretCollider.enabled = true;
             }
-            turretController.CanFire(true);
+            turretController.PlaceTurret();
 
             currentTurretRenderer.material = normalMaterials[chosenTurretType];
             turret = null;

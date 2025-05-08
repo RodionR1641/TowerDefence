@@ -21,6 +21,7 @@ public class TurretController : MonoBehaviour
     private LineRenderer laser;
     private float nextFire = 0.02f;
     private bool canFire = false;
+    private bool placed = false;
 
 
     void Start()
@@ -39,24 +40,26 @@ public class TurretController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //only track and shoot once placed on the map
+        if(placed){
+            FindNearestEnemy();
 
-        FindNearestEnemy();
+            if (target != null)
+            {
+                laser.enabled = true;
+                //RotateTowardsTarget();
+                UpdateLaser();
 
-        if (target != null)
-        {
-            laser.enabled = true;
-            //RotateTowardsTarget();
-            UpdateLaser();
+                if(Time.time > nextFire){
+                    FireLaser();
+                    nextFire = Time.time + fireRate;
+                }
 
-            if((Time.time > nextFire) && canFire){
-                FireLaser();
-                nextFire = Time.time + fireRate;
             }
-
-        }
-        else
-        {
-            laser.enabled = false;
+            else
+            {
+                laser.enabled = false;
+            }
         }
     }
 
@@ -115,10 +118,11 @@ public class TurretController : MonoBehaviour
     public float GetRange(){
         return range;
     }
-    public void CanFire(bool canFireAllowed){
-        canFire = canFireAllowed;
-    }
     public GameObject GetRangeIndicator(){
         return rangeIndicator;
+    }
+
+    public void PlaceTurret(){
+        placed = true;
     }
 }

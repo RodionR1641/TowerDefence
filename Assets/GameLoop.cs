@@ -29,8 +29,8 @@ public class GameLoop : MonoBehaviour
     void InitialiseWaves(){
         enemyWaves.Add(new Dictionary<string, float>
         {
-            { "minEnemies", 50 },
-            { "maxEnemies", 55 },
+            { "minEnemies", 12 },
+            { "maxEnemies", 16 },
             { "spawnRate", 1 },
             { "enemySpeed", 3 },
             { "waveCompletionReward", 5}
