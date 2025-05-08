@@ -35,8 +35,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage){
-        Debug.Log("got hit");
+    public void TakeDamage(float damage){
         health -= damage;
         healthBar.SetHealth((int)health, 100);
         if(health<=0) 

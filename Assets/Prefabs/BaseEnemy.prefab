@@ -110,8 +110,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 1
+  m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6935730932907105361
@@ -155,6 +155,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoint: {fileID: 0}
   healthBar: {fileID: 1807889571451059340}
+  deathReward: 2
+  baseDamage: 1
 --- !u!195 &-5783789403706189106
 NavMeshAgent:
   m_ObjectHideFlags: 0

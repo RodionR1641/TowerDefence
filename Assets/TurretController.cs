@@ -11,24 +11,29 @@ public class TurretController : MonoBehaviour
     [SerializeField] float fireRate = 0.5F;
     [SerializeField] Material laserMaterial;
     [SerializeField] Transform firePoint;
-    [SerializeField] float laserWidth = 1f;
-    [SerializeField] int weaponDamage = 50;
+    [SerializeField] float laserWidth = 10f;
+    [SerializeField] float weaponDamage = 2;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] int turretType = 0; //turret type is just for denoting that this is e.g. a laser turret
-
+    [SerializeField] private GameObject rangeIndicator;//circle indicating the range the turret can shoot
     public float rotationSpeed=10000.0f;
     private Transform target;
     private LineRenderer laser;
-    private float nextFire = 1f;
+    private float nextFire = 0.02f;
+    private bool canFire = false;
 
 
     void Start()
     {
         laser = gameObject.AddComponent<LineRenderer>();
+        //laser.SetWidth(laserWidth,laserWidth);
         laser.startWidth = laserWidth;
         laser.endWidth = laserWidth;
         laser.material = laserMaterial;
         laser.enabled = false;   
+
+        rangeIndicator.transform.localScale = Vector3.one * (range-3);//range and actual collider calculations seem to be slightly off
+        rangeIndicator.SetActive(false);
     }
 
     // Update is called once per frame
@@ -39,10 +44,11 @@ public class TurretController : MonoBehaviour
 
         if (target != null)
         {
+            laser.enabled = true;
             //RotateTowardsTarget();
             UpdateLaser();
 
-            if(Time.time > nextFire){
+            if((Time.time > nextFire) && canFire){
                 FireLaser();
                 nextFire = Time.time + fireRate;
             }
@@ -84,6 +90,7 @@ public class TurretController : MonoBehaviour
         laser.SetPosition(1, target.position);
     }
 
+    //sometimes laser doesnt hit, change the way it works    
     void FireLaser()
     {
         laser.enabled = true;
@@ -105,4 +112,13 @@ public class TurretController : MonoBehaviour
         return turretType;
     }
 
+    public float GetRange(){
+        return range;
+    }
+    public void CanFire(bool canFireAllowed){
+        canFire = canFireAllowed;
+    }
+    public GameObject GetRangeIndicator(){
+        return rangeIndicator;
+    }
 }
