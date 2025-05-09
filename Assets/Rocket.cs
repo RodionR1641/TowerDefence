@@ -1,10 +1,12 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Rocket : MonoBehaviour
 {
     private Transform target;
-    private float speed = 10f;
-    private float weaponDamage = 20;
+    [SerializeField] private float areaDamageRange = 5f;
+    [SerializeField] private float speed = 10f;
+    [SerializeField] private float weaponDamage = 20;
+    [SerializeField] private LayerMask enemyLayers;
     // need to go to target 
     void Update()
     {   
@@ -32,16 +34,31 @@ public class Bullet : MonoBehaviour
                 GameObject enemy = collision.gameObject;
                 Debug.Log($"Hit enemy capsule collider on {enemy.name}");
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                if(enemyController!=null){
-                    Hit(enemyController);
+                if(enemyController!= null){
+                    //pass the position of the hit
+                    Hit(enemyController,collision.collider.transform.position);
                 }
             }
         }    
     }
 
-    void Hit(EnemyController enemyController){
-        //will need to do area damage here
-        enemyController.TakeDamage(weaponDamage);
+    void Hit(EnemyController primaryEnemy, Vector3 impactPoint){
+
+        //first damage the primary enemy we hit
+
+        primaryEnemy.TakeDamage(weaponDamage);
+
+        Collider[] hitAreaColliders = Physics.OverlapSphere(impactPoint,areaDamageRange,enemyLayers);
+            
+        //everyone in the radius should get hit, area damage
+        foreach (Collider otherEnemyCollider in hitAreaColliders){
+            EnemyController enemyController = otherEnemyCollider.GetComponent<EnemyController>();
+            //avoid damaging the original enemy twice
+            if(enemyController != null && enemyController != primaryEnemy){
+                enemyController.TakeDamage(weaponDamage);
+            }
+        }
+
         Destroy(gameObject);
     }
 

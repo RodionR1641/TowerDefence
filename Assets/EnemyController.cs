@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     UnityEngine.AI.NavMeshAgent agent; 
     public System.Action<EnemyController> OnEnemyDied; //use this to tell gameloop about this enemy dying
     [SerializeField] private int deathReward = 2;
-    [SerializeField] private int baseDamage = 1; //how much the enemy damages the base if it gets there
+    [SerializeField] private int baseDamage = 2; //how much the enemy damages the base if it gets there
 
     // Use this for initialization 
     void Start () 

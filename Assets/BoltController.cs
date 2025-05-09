@@ -5,13 +5,14 @@ using UnityEngine;
 public class BoltController : TurretController
 {
     public GameObject bulletPrefab;
-    private float nextFire = 1f;
+    private float nextFire = 3f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         summonCost = 10;
         range = 20;
         rangeIndicator.transform.localScale = Vector3.one * (range-3);
+        weaponDamage = 30;
     }
 
     // Update is called once per frame
@@ -34,10 +35,7 @@ public class BoltController : TurretController
 
     //instantiate a bullet
     private void FireBolt(){
-        Vector3 rayOrigin = firePoint.position;
-        Vector3 rayDirection = (target.position - firePoint.position).normalized;
         
-        //Ray ray = new Ray(transform.position,transform.forward);
         //only fire within range
         if (shortestDistance <= range)
         {
@@ -45,6 +43,7 @@ public class BoltController : TurretController
             Bullet bullet = bulletObject.GetComponent<Bullet>();
 
             if(bullet != null){
+                bullet.SetWeaponDamage(weaponDamage);
                 bullet.SetTarget(target);
             }
         }
