@@ -5,7 +5,8 @@ using System.Collections;
 
 public class GameLoop : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject baseEnemyPrefab;
+    [SerializeField] private GameObject armorEnemyPrefab;
     public Waypoint firstWaypoint;
 
     public int numWaves = 5;
@@ -31,7 +32,7 @@ public class GameLoop : MonoBehaviour
         {
             { "minEnemies", 12 },
             { "maxEnemies", 16 },
-            { "spawnRate", 1 },
+            { "spawnRate", 3 },
             { "enemySpeed", 3 },
             { "waveCompletionReward", 5}
         });
@@ -117,7 +118,7 @@ public class GameLoop : MonoBehaviour
 
     void SpawnEnemy(float enemySpeed) 
     { 
-        GameObject gameObject = Instantiate(enemyPrefab, 
+        GameObject gameObject = Instantiate(armorEnemyPrefab, 
         transform.position, transform.rotation); 
         EnemyController enemy = gameObject.GetComponent<EnemyController>(); 
 

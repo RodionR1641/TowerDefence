@@ -41,7 +41,7 @@ public class Bullet : MonoBehaviour
 
     void Hit(EnemyController enemyController){
         //will need to do area damage here
-        enemyController.TakeDamage(weaponDamage);
+        enemyController.TakeDamage(weaponDamage,true);
         Destroy(gameObject);
     }
 

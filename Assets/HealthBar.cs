@@ -3,20 +3,19 @@ using UnityEngine.UI;
  
 public class HealthBar : MonoBehaviour 
 { 
-    public Image healthBarImage; 
+    [SerializeField]protected Image healthBarImage; 
  
-    Camera cam; 
+    protected Camera cam; 
  
     void Start() 
     { 
         cam = Camera.main; 
-        healthBarImage = GetComponentInChildren<Image>(); 
         healthBarImage.fillAmount = 1.0f; 
     } 
  
-    public void SetHealth(float currentHealth, float maxHealth) 
+    public void SetHealth(double currentHealth, double maxHealth) 
     { 
-        healthBarImage.fillAmount = currentHealth / maxHealth; 
+        healthBarImage.fillAmount = (float)(currentHealth / maxHealth); 
     } 
  
     void Update() 
