@@ -463,7 +463,7 @@ MonoBehaviour:
   range: 15
   fireRate: 0.02
   firePoint: {fileID: 6462954152828884760}
-  weaponDamage: 2
+  weaponDamage: 1.5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
