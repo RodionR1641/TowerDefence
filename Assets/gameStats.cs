@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameStats : MonoBehaviour
 {
     [SerializeField] private int baseHealth = 25;
-    [SerializeField] private float currentMoney = 10;//enough for 1 laser turret at the start
+    [SerializeField] private float currentMoney = 100;//enough for 1 laser turret at the start
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI healthText;
 

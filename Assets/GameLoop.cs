@@ -41,11 +41,11 @@ public class GameLoop : MonoBehaviour
             { "enemySpeed", 3 },
             { "waveCompletionReward", 5},
             {"leftSideEnemies",0}, //chance of an enemy spawning at the left side of map
-            {"armorEnemyChance",1},
+            {"armorEnemyChance",0},
             {"burstMinEnemies",4},
             {"burstMaxEnemies",6},
             {"burstDelayModifier",0.4f},
-            {"miniBoss",1} //if 1 -> miniboss 
+            {"miniBoss",0} //if 1 -> miniboss 
 
         });
 

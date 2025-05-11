@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TurretController : MonoBehaviour
@@ -10,11 +11,16 @@ public class TurretController : MonoBehaviour
     [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected int turretType = 0; //turret type is just for denoting that this is e.g. a laser turret
     [SerializeField] protected GameObject rangeIndicator;//circle indicating the range the turret can shoot
+    [SerializeField] protected Canvas manageTurretCanvas;
     public float rotationSpeed=10000.0f;
     protected Transform target;
     protected bool placed = false;
     protected int summonCost = 10;
     protected float shortestDistance;
+    protected bool upgraded = false;//keep track of whether this turret has already been upgraded or not
+    protected int upgradeCost = 15;
+    protected List<float> upgradeStats = new List<float> {1f,0.25f};//upgrades: weaponDamage, fireRate by appending these values
+    protected int sellReward = 5;//how much money you get back by selling the turret
 
 
     public void FindNearestEnemy(){
@@ -40,6 +46,19 @@ public class TurretController : MonoBehaviour
                 target = null;
             }
         }
+    }
+
+    public void UpgradeTurret(){
+        if(GameStats.Instance.GetCurrentMoney() >= upgradeCost){
+            weaponDamage += upgradeStats[0];
+            fireRate += upgradeStats[1];
+            GameStats.Instance.ChangeMoney(-upgradeCost);
+        }
+    }
+
+    public void SellTurret(){
+        GameStats.Instance.ChangeMoney(sellReward);
+        Destroy(gameObject);
     }
 
     public int GetTurretType(){

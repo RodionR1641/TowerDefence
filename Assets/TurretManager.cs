@@ -92,6 +92,8 @@ public class TurretManager : MonoBehaviour
                 turretCollider.enabled = true;
             }
             turretController.PlaceTurret();
+            TurretCanvas turretCanvas = turret.GetComponentInChildren<TurretCanvas>();
+            turretCanvas.SetFixedPosition();
 
             currentTurretRenderer.material = normalMaterials[chosenTurretType];
             turret = null;
