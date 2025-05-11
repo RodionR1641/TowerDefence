@@ -11,7 +11,7 @@ public class TurretController : MonoBehaviour
     [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected int turretType = 0; //turret type is just for denoting that this is e.g. a laser turret
     [SerializeField] protected GameObject rangeIndicator;//circle indicating the range the turret can shoot
-    [SerializeField] protected Canvas manageTurretCanvas;
+    protected float nextFire;
     public float rotationSpeed=10000.0f;
     protected Transform target;
     protected bool placed = false;
@@ -19,9 +19,16 @@ public class TurretController : MonoBehaviour
     protected float shortestDistance;
     protected bool upgraded = false;//keep track of whether this turret has already been upgraded or not
     protected int upgradeCost = 15;
-    protected List<float> upgradeStats = new List<float> {1f,0.25f};//upgrades: weaponDamage, fireRate by appending these values
+    protected List<float> upgradeStats = new List<float> {1f,-0.15f};//upgrades: weaponDamage, fireRate by appending these values
     protected int sellReward = 5;//how much money you get back by selling the turret
+    protected TurretCanvas turretCanvas;
+    protected bool turretCanvasActivated = false;
 
+
+    virtual protected void Start()
+    {
+        turretCanvas = gameObject.GetComponentInChildren<TurretCanvas>();
+    }
 
     public void FindNearestEnemy(){
         EnemyController[] enemies = FindObjectsOfType<EnemyController>();
@@ -59,6 +66,12 @@ public class TurretController : MonoBehaviour
     public void SellTurret(){
         GameStats.Instance.ChangeMoney(sellReward);
         Destroy(gameObject);
+    }
+
+    //if press,set the canvas to be active or inactive depending on if it was previously active
+    protected void OnMouseDown()
+    {
+        turretCanvas.EnableCanvas();
     }
 
     public int GetTurretType(){

@@ -1,28 +1,9 @@
 using UnityEngine;
 
-public class Rocket : MonoBehaviour
+public class Rocket : Bullet
 {
-    private Transform target;
     [SerializeField] private float areaDamageRange = 5f;
-    [SerializeField] private float speed = 10f;
-    [SerializeField] private float weaponDamage = 20;
     [SerializeField] private LayerMask enemyLayers;
-    // need to go to target 
-    void Update()
-    {   
-        //if nothing to chase anymore, just die
-        if(target == null){
-            Destroy(gameObject);
-            return;
-        }
-
-        //need to direct it towards the target
-        Vector3 direction = target.position - transform.position;
-        float distanceFrame = speed * Time.deltaTime;//how much to move this frame
-
-        //moving
-        transform.Translate(direction.normalized * distanceFrame, Space.World);
-    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -32,7 +13,7 @@ public class Rocket : MonoBehaviour
             if (capsule != null)
             {
                 GameObject enemy = collision.gameObject;
-                Debug.Log($"Hit enemy capsule collider on {enemy.name}");
+                Debug.Log($"Hit enemy capsule collider on {enemy.name}, weapon damage = {weaponDamage}");
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
                 if(enemyController!= null){
                     //pass the position of the hit
@@ -60,14 +41,5 @@ public class Rocket : MonoBehaviour
         }
 
         Destroy(gameObject);
-    }
-
-
-    public void SetTarget(Transform targetToChase){
-        target = targetToChase;
-    }
-
-    public void SetWeaponDamage(float damage){
-        weaponDamage = damage;
     }
 }

@@ -5,11 +5,11 @@ public class LaserController: TurretController
     private LineRenderer laser;
     [SerializeField] float laserWidth = 10f;
     [SerializeField] Material laserMaterial;
-    private float nextFire = 0.02f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    protected override void Start()
+    {   
+        base.Start();
         laser = gameObject.AddComponent<LineRenderer>();
         //laser.SetWidth(laserWidth,laserWidth);
         laser.startWidth = laserWidth;
@@ -22,6 +22,7 @@ public class LaserController: TurretController
 
         turretType = 0;
         summonCost = 12;
+        nextFire = fireRate;//make sure we can immediately fire
     }
 
     // Update is called once per frame
@@ -64,7 +65,7 @@ public class LaserController: TurretController
         
         if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, range,enemyLayer))
         {
-            Debug.Log($"Hit: {hit.collider.name} at {hit.point}");
+            Debug.Log($"Hit: {hit.collider.name} at {hit.point} by damage = {weaponDamage}");
             if (hit.collider.CompareTag("Enemy"))
             {
                 hit.collider.GetComponent<EnemyController>().TakeDamage(weaponDamage);

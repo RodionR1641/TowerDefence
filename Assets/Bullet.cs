@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Transform target;
-    private float speed = 10f;
-    private float weaponDamage = 20;
+    protected Transform target;
+    protected float speed = 10f;
+    protected float weaponDamage = 20;
     // need to go to target 
-    void Update()
+    protected void Update()
     {   
         //if nothing to chase anymore, just die
         if(target == null){
@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
             if (capsule != null)
             {
                 GameObject enemy = collision.gameObject;
-                Debug.Log($"Hit enemy capsule collider on {enemy.name}");
+                Debug.Log($"Hit enemy capsule collider on {enemy.name}, weapon damage = {weaponDamage}");
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
                 if(enemyController!=null){
                     Hit(enemyController);

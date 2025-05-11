@@ -1,18 +1,20 @@
-using NUnit.Framework;
-using Unity.IntegerTime;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RocketController : TurretController
 {
     public GameObject rocketPrefab;
-    private float nextFire = 4.5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         summonCost = 25;
         range = 20;
         rangeIndicator.transform.localScale = Vector3.one * (range-3);
         weaponDamage = 20;//does area damage
+        fireRate = 4.5f;
+        nextFire = fireRate;
+        upgradeStats = new List<float>{10f,-1.5f};
     }
 
     // Update is called once per frame
@@ -26,6 +28,7 @@ public class RocketController : TurretController
 
                 if(Time.time > nextFire){
                     FireBolt();
+                    Debug.Log($"fire rate = {fireRate}");
                     nextFire = Time.time + fireRate;
                 }
 

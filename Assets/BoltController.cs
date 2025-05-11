@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NUnit.Framework;
 using Unity.IntegerTime;
 using UnityEngine;
@@ -5,14 +6,17 @@ using UnityEngine;
 public class BoltController : TurretController
 {
     public GameObject bulletPrefab;
-    private float nextFire = 3f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         summonCost = 10;
         range = 20;
         rangeIndicator.transform.localScale = Vector3.one * (range-3);
         weaponDamage = 30;
+        fireRate = 4.0f;
+        nextFire = fireRate;
+        upgradeStats = new List<float>{10f,-1.5f};
     }
 
     // Update is called once per frame

@@ -37,14 +37,14 @@ public class GameLoop : MonoBehaviour
         {
             { "minEnemies", 5 },
             { "maxEnemies", 10 },
-            { "spawnRate", 3 },
+            { "spawnRate", 5 },
             { "enemySpeed", 3 },
             { "waveCompletionReward", 5},
             {"leftSideEnemies",0}, //chance of an enemy spawning at the left side of map
             {"armorEnemyChance",0},
-            {"burstMinEnemies",4},
-            {"burstMaxEnemies",6},
-            {"burstDelayModifier",0.4f},
+            {"burstMinEnemies",2},
+            {"burstMaxEnemies",3},
+            {"burstDelayModifier",0.6f},
             {"miniBoss",0} //if 1 -> miniboss 
 
         });
@@ -146,7 +146,7 @@ public class GameLoop : MonoBehaviour
 
         //dynamic wave phases
         int burstSize = Random.Range(3,5);//number of enemies spawned in a "burst"  
-        float burstDelay = waveData["spawnRate"] *0.4f;
+        float burstDelay = waveData["spawnRate"] * waveData["burstDelayModifier"];
         float cooldownTime = Random.Range(2f,5f);
 
         if(waveData["miniBoss"] == 1){

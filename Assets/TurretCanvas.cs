@@ -5,9 +5,17 @@ public class TurretCanvas : MonoBehaviour
     private Vector3 fixedPosition;
     private bool fixedPositionSet = false;
     private Quaternion fixedRotation;
+    private Canvas canvas;
+    
     void Start()
     {
-        fixedRotation = transform.rotation;
+        fixedRotation = transform.rotation; 
+    }
+
+    void Awake()
+    {
+        canvas = GetComponent<Canvas>();
+        canvas.enabled = false;   
     }
 
     void LateUpdate()
@@ -16,6 +24,10 @@ public class TurretCanvas : MonoBehaviour
             transform.position = fixedPosition;
         }
         transform.rotation = fixedRotation; //make sure the canvas never rotates when the turret does
+    }
+
+    public void EnableCanvas(){
+        canvas.enabled = !canvas.enabled;//constantly change between being active and not everytime turret is clicked
     }
 
     //once the turret has been placed, fix the position of the canvas in place

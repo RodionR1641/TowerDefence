@@ -983,7 +983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHealth: 25
-  currentMoney: 10
+  currentMoney: 100
   moneyText: {fileID: 1582545477}
   healthText: {fileID: 1445731376}
 --- !u!1 &196466927
