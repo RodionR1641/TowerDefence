@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameStats : MonoBehaviour
 {
     [SerializeField] private int baseHealth = 25;
-    [SerializeField] private int currentMoney = 10;//enough for 1 basic turret
+    [SerializeField] private float currentMoney = 10;//enough for 1 laser turret at the start
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI healthText;
 
@@ -35,12 +35,12 @@ public class GameStats : MonoBehaviour
 
     //function that can either increase or decrease the current income
     //get money for killing enemies and completing waves
-    public void ChangeMoney(int money){
+    public void ChangeMoney(float money){
         currentMoney += money;
         moneyText.SetText($"$ {currentMoney}");
     }
 
-    public int GetCurrentMoney(){
+    public float GetCurrentMoney(){
         return currentMoney;
     }
 

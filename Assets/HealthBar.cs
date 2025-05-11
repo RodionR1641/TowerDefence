@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour
  
     protected Camera cam; 
  
-    void Start() 
+    protected virtual void Start() 
     { 
         cam = Camera.main; 
         healthBarImage.fillAmount = 1.0f; 

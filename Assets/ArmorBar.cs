@@ -5,10 +5,9 @@ public class ArmorBar : HealthBar
 {
     public Image armorBarImage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
-        cam = Camera.main; 
-        healthBarImage.fillAmount = 1.0f; 
+        base.Start();
         armorBarImage.fillAmount = 1.0f; 
     }
 

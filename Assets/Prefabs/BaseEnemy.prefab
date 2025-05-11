@@ -137,7 +137,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -154,10 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoint: {fileID: 0}
-  healthBar: {fileID: 1807889571451059340}
   maxHealth: 100
   deathReward: 2
   baseDamage: 1
+  healthBar: {fileID: 1807889571451059340}
 --- !u!195 &-5783789403706189106
 NavMeshAgent:
   m_ObjectHideFlags: 0

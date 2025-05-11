@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -7,7 +8,6 @@ public class TurretManager : MonoBehaviour
 {
     public LayerMask groundLayer;
 
-    //[SerializeField]public DecalProjector decalProjector;//denotes the range of turret
     [SerializeField] private Camera mainCamera;
     [SerializeField] private List<Material> normalMaterials; //keeps track of normal material designs for all turrets
     [SerializeField] private Material validMaterial;
@@ -48,6 +48,11 @@ public class TurretManager : MonoBehaviour
                 {
                     Debug.Log("Placed Turret");
                     PlaceTurret();
+                }
+                else if(Input.GetMouseButton(1)){
+                    Debug.Log("Cancelled turret");
+                    Destroy(turret);
+                    turret=null;
                 }
             }
             else{

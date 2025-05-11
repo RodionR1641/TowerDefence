@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class ArmorEnemyController : EnemyController
@@ -8,12 +7,12 @@ public class ArmorEnemyController : EnemyController
     [SerializeField] private double maxArmor=100;
     private double currentArmor;
     private double damageModifierArmor = 0.3;//only take 30% damage if armor is present
-    void Start()
+    
+    override protected void Start()
     {
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>(); 
-        agent.destination = waypoint.transform.position;
-        currentHealth = maxHealth;
+        base.Start();
         currentArmor = maxArmor;
+        deathReward = 1;
     }
 
 

@@ -7,6 +7,7 @@ public class GameLoop : MonoBehaviour
 {
     [SerializeField] private GameObject baseEnemyPrefab;
     [SerializeField] private GameObject armorEnemyPrefab;
+    [SerializeField] private GameObject miniBossEnemyPrefab;
     [SerializeField] private GameObject spawnPointRight;
     [SerializeField] private GameObject spawnPointLeft;
     public Waypoint startingWaypointRight;
@@ -17,6 +18,7 @@ public class GameLoop : MonoBehaviour
     private int currentWave = 0;
 
     private float waveCooldown = 2f; //cooldown between waves
+    private float miniBossCooldown = 10f;//how much to wait after spawning miniboss and before spawning next enemies
 
     //A list per wave, stores the minEnemies,maxEnemies, spawnRate, enemySpeed
     private List<Dictionary<string, float>> enemyWaves = new List<Dictionary<string, float>>();
@@ -39,7 +41,12 @@ public class GameLoop : MonoBehaviour
             { "enemySpeed", 3 },
             { "waveCompletionReward", 5},
             {"leftSideEnemies",0}, //chance of an enemy spawning at the left side of map
-            {"armorEnemyChance",0}
+            {"armorEnemyChance",1},
+            {"burstMinEnemies",4},
+            {"burstMaxEnemies",6},
+            {"burstDelayModifier",0.4f},
+            {"miniBoss",1} //if 1 -> miniboss 
+
         });
 
         enemyWaves.Add(new Dictionary<string, float>
@@ -50,7 +57,11 @@ public class GameLoop : MonoBehaviour
             { "enemySpeed", 3 },
             { "waveCompletionReward", 10},
             {"leftSideEnemies",0.3f},
-            {"armorEnemyChance",0}
+            {"armorEnemyChance",0},
+            {"burstMinEnemies",5},
+            {"burstMaxEnemies",7},
+            {"burstDelayModifier",0.3f},
+            {"miniBoss",0}
         });
 
         enemyWaves.Add(new Dictionary<string, float>
@@ -61,7 +72,11 @@ public class GameLoop : MonoBehaviour
             { "enemySpeed", 4 },
             { "waveCompletionReward", 5},
             {"leftSideEnemies",0.4f},
-            {"armorEnemyChance",0.3f}
+            {"armorEnemyChance",0.3f},
+            {"burstMinEnemies",6},
+            {"burstMaxEnemies",8},
+            {"burstDelayModifier",0.3f},
+            {"miniBoss",0}
         });
 
         enemyWaves.Add(new Dictionary<string, float>
@@ -72,7 +87,11 @@ public class GameLoop : MonoBehaviour
             { "enemySpeed", 4 },
             { "waveCompletionReward", 15},
             {"leftSideEnemies",0.3f},
-            {"armorEnemyChance",0.4f}
+            {"armorEnemyChance",0.4f},
+            {"burstMinEnemies",8},
+            {"burstMaxEnemies",10},
+            {"burstDelayModifier",0.2f},
+            {"miniBoss",1}
         });
 
         enemyWaves.Add(new Dictionary<string, float>
@@ -83,7 +102,11 @@ public class GameLoop : MonoBehaviour
             { "enemySpeed", 4.5f },
             { "waveCompletionReward", 10},
             {"leftSideEnemies",0.5f},
-            {"armorEnemyChance",0.7f}
+            {"armorEnemyChance",0.7f},
+            {"burstMinEnemies",10},
+            {"burstMaxEnemies",12},
+            {"burstDelayModifier",0.2f},
+            {"miniBoss",1}
         });
     }
 
@@ -126,6 +149,11 @@ public class GameLoop : MonoBehaviour
         float burstDelay = waveData["spawnRate"] *0.4f;
         float cooldownTime = Random.Range(2f,5f);
 
+        if(waveData["miniBoss"] == 1){
+            SpawnMiniBoss(waveData);
+            yield return new WaitForSeconds(miniBossCooldown);
+        }
+
         for(int i=0;i<numEnemies;i++){
 
             //burst
@@ -142,29 +170,42 @@ public class GameLoop : MonoBehaviour
 
     void SpawnEnemy(Dictionary<string,float> waveData) 
     { 
-
         //randomly choose starting point
         GameObject spawnPoint;
+        Waypoint startingWaypoint;
         float leftChance = waveData["leftSideEnemies"];
 
         if(Random.Range(0f,1f) > leftChance){
             spawnPoint = spawnPointRight;
+            startingWaypoint = startingWaypointRight;
         }
         else{
             spawnPoint = spawnPointLeft;
+            startingWaypoint = startingWaypointLeft;
         }
-        
         //now randomly choose enemy type based on armor probability
+        GameObject enemyPrefab = Random.Range(0f, 1f) > waveData["armorEnemyChance"] ? baseEnemyPrefab : armorEnemyPrefab;
+        
+        InstantiateEnemy(waveData,enemyPrefab,spawnPoint,startingWaypoint);
+    }
 
+    void SpawnMiniBoss(Dictionary<string,float> waveData){
+        InstantiateEnemy(waveData,miniBossEnemyPrefab,spawnPointRight,startingWaypointRight);
+    }
+
+
+    //instantiate an enemy at a specified spawn point, and pass the next waypoint it should go towards
+    void InstantiateEnemy(Dictionary<string,float> waveData, GameObject enemyPrefab,
+     GameObject spawnPoint ,Waypoint startingWaypoint){
+        
         GameObject enemyObject = Instantiate(
-            Random.Range(0f, 1f) > waveData["armorEnemyChance"] ? baseEnemyPrefab : armorEnemyPrefab,
-            spawnPoint.transform.position, 
+            enemyPrefab,
+            spawnPoint.transform.position,
             spawnPoint.transform.rotation
         );
 
-        EnemyController enemy = enemyObject.GetComponent<EnemyController>(); 
-
-        enemy.waypoint = startingWaypointRight; 
+        EnemyController enemy = enemyObject.GetComponent<EnemyController>();
+        enemy.waypoint = startingWaypoint;
         enemy.OnEnemyDied += HandleEnemyDeath; //subsribe to the event of death 
         enemy.SetSpeed(waveData["enemySpeed"]);
         activeEnemies.Add(enemy);

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1500967080522854001}
   - component: {fileID: 7983615830113705535}
   - component: {fileID: 6481896880788345527}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 162098186008345957}
   - component: {fileID: -6573035405262986836}
   - component: {fileID: 3340021907354549872}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ArmorBolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 4779941661491253868}
   - component: {fileID: 3974864814084403344}
   - component: {fileID: 8437020082954643564}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

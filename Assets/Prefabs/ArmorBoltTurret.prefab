@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 15
-  fireRate: 2
+  fireRate: 1
   firePoint: {fileID: 888181487524689573}
   weaponDamage: 25
   enemyLayer:
