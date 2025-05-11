@@ -22,7 +22,6 @@ public class TurretController : MonoBehaviour
     protected List<float> upgradeStats = new List<float> {1f,-0.15f};//upgrades: weaponDamage, fireRate by appending these values
     protected int sellReward = 5;//how much money you get back by selling the turret
     protected TurretCanvas turretCanvas;
-    protected bool turretCanvasActivated = false;
 
 
     virtual protected void Start()
@@ -56,10 +55,12 @@ public class TurretController : MonoBehaviour
     }
 
     public void UpgradeTurret(){
-        if(GameStats.Instance.GetCurrentMoney() >= upgradeCost){
+        if(GameStats.Instance.GetCurrentMoney() >= upgradeCost && upgraded == false){
             weaponDamage += upgradeStats[0];
             fireRate += upgradeStats[1];
             GameStats.Instance.ChangeMoney(-upgradeCost);
+            upgraded = true;
+            turretCanvas.HideUpgradeButton();//make sure user doesn't think they can upgrade again
         }
     }
 

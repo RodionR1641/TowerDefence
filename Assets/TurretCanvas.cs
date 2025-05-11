@@ -1,21 +1,27 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurretCanvas : MonoBehaviour
-{   
+{    
+    [SerializeField] Button upgradeButton;
+    [SerializeField] GameObject upgradePrice;
+    private TextMeshPro upgradePriceText;
     private Vector3 fixedPosition;
     private bool fixedPositionSet = false;
     private Quaternion fixedRotation;
     private Canvas canvas;
-    
+
     void Start()
     {
-        fixedRotation = transform.rotation; 
+        fixedRotation = transform.rotation;
     }
 
     void Awake()
     {
         canvas = GetComponent<Canvas>();
-        canvas.enabled = false;   
+        canvas.enabled = false; 
+        upgradePriceText = upgradePrice.GetComponent<TextMeshPro>();   
     }
 
     void LateUpdate()
@@ -34,5 +40,11 @@ public class TurretCanvas : MonoBehaviour
     public void SetFixedPosition(){
         fixedPositionSet = true;
         fixedPosition = transform.position;
+    }
+
+    public void HideUpgradeButton()
+    {
+        upgradeButton.enabled = false;
+        upgradePriceText.enabled = false;
     }
 }
