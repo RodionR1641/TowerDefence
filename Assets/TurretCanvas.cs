@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public class TurretCanvas : MonoBehaviour
 {    
-    [SerializeField] Button upgradeButton;
+    [SerializeField] GameObject upgradeButton;
     [SerializeField] GameObject upgradePrice;
-    private TextMeshPro upgradePriceText;
+    private TMP_Text upgradePriceText;
     private Vector3 fixedPosition;
     private bool fixedPositionSet = false;
     private Quaternion fixedRotation;
@@ -21,7 +21,7 @@ public class TurretCanvas : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         canvas.enabled = false; 
-        upgradePriceText = upgradePrice.GetComponent<TextMeshPro>();   
+        upgradePriceText = upgradePrice.GetComponent<TMP_Text>();   
     }
 
     void LateUpdate()
@@ -44,7 +44,7 @@ public class TurretCanvas : MonoBehaviour
 
     public void HideUpgradeButton()
     {
-        upgradeButton.enabled = false;
+        upgradeButton.SetActive(false);
         upgradePriceText.enabled = false;
     }
 }

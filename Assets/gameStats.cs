@@ -9,6 +9,8 @@ public class GameStats : MonoBehaviour
     [SerializeField] private float currentMoney = 100;//enough for 1 laser turret at the start
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI healthText;
+    public const int maxNumTurrets = 1;
+    private int currentNumTurrets = 0;
 
     private static GameStats _instance;
     public static GameStats Instance {get {return _instance;}}
@@ -51,6 +53,18 @@ public class GameStats : MonoBehaviour
 
     public int GetBaseHealth(){
         return baseHealth;
+    }
+
+    public void AddTurret(){
+        currentNumTurrets++;
+    }
+
+    public void RemoveTurret(){
+        currentNumTurrets--;
+    }
+
+    public int GetCurrentNumTurrets(){
+        return currentNumTurrets;
     }
 
 }

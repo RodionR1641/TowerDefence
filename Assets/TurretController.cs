@@ -66,6 +66,9 @@ public class TurretController : MonoBehaviour
 
     public void SellTurret(){
         GameStats.Instance.ChangeMoney(sellReward);
+        GameStats.Instance.RemoveTurret();
+        Debug.Log($"Current Turret Num = {GameStats.Instance.GetCurrentNumTurrets()}");
+        
         Destroy(gameObject);
     }
 

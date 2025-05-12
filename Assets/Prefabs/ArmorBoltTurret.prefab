@@ -1744,6 +1744,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25535dc3a96cbd642b788ac530dc4c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeButton: {fileID: 794865934946827661}
+  upgradePrice: {fileID: 2054300404861717057}
 --- !u!1 &7843270232205863163
 GameObject:
   m_ObjectHideFlags: 0

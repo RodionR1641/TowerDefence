@@ -388,7 +388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8244036212368443280}
   - component: {fileID: 6963981737493921450}
-  - component: {fileID: 4174138391755579370}
+  - component: {fileID: 4312822122630335418}
   m_Layer: 7
   m_Name: UpgradeAmount
   m_TagString: Untagged
@@ -423,7 +423,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608217476890275358}
   m_CullTransparentMesh: 1
---- !u!114 &4174138391755579370
+--- !u!114 &4312822122630335418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -669,6 +669,7 @@ GameObject:
   - component: {fileID: 8801637489333519296}
   - component: {fileID: 6086916273221911036}
   - component: {fileID: 7718176335649670345}
+  - component: {fileID: 9119879861829344599}
   m_Layer: 7
   m_Name: ManageTurret
   m_TagString: Untagged
@@ -684,7 +685,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5589411968052261812}
   m_LocalRotation: {x: 0.60876137, y: 0, z: 0, w: 0.7933534}
-  m_LocalPosition: {x: 0, y: 0, z: 1.18}
+  m_LocalPosition: {x: 0, y: 0, z: 1.1898}
   m_LocalScale: {x: 0.4, y: 0.33333334, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -696,8 +697,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 75, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.36, y: 1.94}
-  m_SizeDelta: {x: 10.7365, y: 6.306}
+  m_AnchoredPosition: {x: -0.3494, y: 1.9422}
+  m_SizeDelta: {x: 10.7894, y: 6.3662}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6724280493384035382
 Canvas:
@@ -774,8 +775,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25535dc3a96cbd642b788ac530dc4c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeButton: {fileID: 4781748684121488062}
+  upgradeButton: {fileID: 5620961650094950421}
   upgradePrice: {fileID: 1608217476890275358}
+--- !u!222 &9119879861829344599
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5589411968052261812}
+  m_CullTransparentMesh: 1
 --- !u!1 &5620961650094950421
 GameObject:
   m_ObjectHideFlags: 0

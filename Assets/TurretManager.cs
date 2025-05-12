@@ -99,13 +99,16 @@ public class TurretManager : MonoBehaviour
             turret = null;
             currentTurretRenderer = null;
             turretRangeIndicator.SetActive(false);
+
+            GameStats.Instance.AddTurret();
         }
     }
 
     //turret type shoud match the materials list for this game object
     public void SetTurretPlace(GameObject turretPrefab){
+        int currentTurretNum = GameStats.Instance.GetCurrentNumTurrets();
         //only can select if have enough money
-        if(turret == null && (GameStats.Instance.GetCurrentMoney() >= summonCost))
+        if(turret == null && (GameStats.Instance.GetCurrentMoney() >= summonCost) && currentTurretNum < GameStats.maxNumTurrets)
         {   
             turret = Instantiate(turretPrefab, Vector3.zero, Quaternion.identity);
             GetTurretInfo();
