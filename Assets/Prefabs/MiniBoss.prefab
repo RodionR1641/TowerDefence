@@ -149,11 +149,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoint: {fileID: 0}
-  maxHealth: 400
+  maxHealth: 800
   deathReward: 10
-  baseDamage: 10
+  baseDamage: 5
   armorBar: {fileID: 9091798958228195930}
-  maxArmor: 200
+  maxArmor: 400
 --- !u!54 &4202845812620056666
 Rigidbody:
   m_ObjectHideFlags: 0

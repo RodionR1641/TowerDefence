@@ -10,13 +10,8 @@ public class BoltController : TurretController
     protected override void Start()
     {
         base.Start();
-        summonCost = 10;
-        range = 20;
         rangeIndicator.transform.localScale = Vector3.one * (range-3);
-        weaponDamage = 30;
-        fireRate = 4.0f;
         nextFire = fireRate;
-        upgradeStats = new List<float>{10f,-1.5f};
     }
 
     // Update is called once per frame

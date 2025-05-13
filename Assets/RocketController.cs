@@ -8,13 +8,9 @@ public class RocketController : TurretController
     protected override void Start()
     {
         base.Start();
-        summonCost = 25;
-        range = 20;
         rangeIndicator.transform.localScale = Vector3.one * (range-3);
-        weaponDamage = 20;//does area damage
-        fireRate = 4.5f;
         nextFire = fireRate;
-        upgradeStats = new List<float>{10f,-1.5f};
+        Debug.Log($"Rocket controller price = {summonCost}");
     }
 
     // Update is called once per frame
@@ -28,7 +24,7 @@ public class RocketController : TurretController
 
                 if(Time.time > nextFire){
                     FireBolt();
-                    Debug.Log($"fire rate = {fireRate}");
+                    //Debug.Log($"fire rate = {fireRate}");
                     nextFire = Time.time + fireRate;
                 }
 

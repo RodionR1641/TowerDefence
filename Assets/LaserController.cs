@@ -21,7 +21,6 @@ public class LaserController: TurretController
         rangeIndicator.SetActive(false);
 
         turretType = 0;
-        summonCost = 12;
         nextFire = fireRate;//make sure we can immediately fire
     }
 
@@ -65,7 +64,7 @@ public class LaserController: TurretController
         
         if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, range,enemyLayer))
         {
-            Debug.Log($"Hit: {hit.collider.name} at {hit.point} by damage = {weaponDamage}");
+            //Debug.Log($"Hit: {hit.collider.name} at {hit.point} by damage = {weaponDamage}");
             if (hit.collider.CompareTag("Enemy"))
             {
                 hit.collider.GetComponent<EnemyController>().TakeDamage(weaponDamage);

@@ -57,12 +57,15 @@ public class SpecialAbilityManager : MonoBehaviour
 
             Destroy(abilityCircle);
             abilityCircle = null;
+            GameStats.Instance.RegisterAbility();
         }
     }
 
     public void SetActivityCircle(GameObject areaCirclePrefab){
+        int currentTurretNum = GameStats.Instance.GetCurrentNumAbilities();
         //only can select if have enough money
-        if(abilityCircle == null && (GameStats.Instance.GetCurrentMoney() >= summonCost))
+        if(abilityCircle == null && (GameStats.Instance.GetCurrentMoney() >= summonCost) &&
+            currentTurretNum < GameStats.maxNumAbilities)
         {   
             abilityCircle = Instantiate(areaCirclePrefab, Vector3.zero, areaCirclePrefab.transform.rotation);
 

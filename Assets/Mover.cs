@@ -14,7 +14,6 @@ public class Mover : MonoBehaviour
         target = Waypoints.waypoints[0];
     }
     
-    // Update is called once per frame 
     void Update () { 
         
         Vector3 dir = target.position - transform.position;
@@ -28,22 +27,6 @@ public class Mover : MonoBehaviour
             }
             target = Waypoints.waypoints[pointIndex];
         }
-
-        /*
-        { 
-            if(waypoint.nextWaypoint!=null) 
-            { 
-                Waypoint nextWaypoint = waypoint.nextWaypoint; 
-                waypoint = nextWaypoint; 
-                agent.destination = waypoint.transform.position; 
-            } 
-            else 
-            { 
-                // attack the base code here
-                Destroy(gameObject); 
-            } 
-        }
-        */
     }
 
     void OnTriggerStay(Collider other){

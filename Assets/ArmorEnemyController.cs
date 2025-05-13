@@ -6,13 +6,12 @@ public class ArmorEnemyController : EnemyController
     [SerializeField] ArmorBar armorBar;
     [SerializeField] private double maxArmor=100;
     private double currentArmor;
-    private double damageModifierArmor = 0.3;//only take 30% damage if armor is present
+    private double damageModifierArmor = 0.2;//only take 20% damage if armor is present
     
     override protected void Start()
     {
         base.Start();
         currentArmor = maxArmor;
-        deathReward = 1;
     }
 
 
@@ -31,13 +30,13 @@ public class ArmorEnemyController : EnemyController
         }
 
         currentHealth -= damage*damageModifier; 
-        Debug.Log($"Took {damage*damageModifier} damage");
+        //Debug.Log($"Took {damage*damageModifier} damage");
         armorBar.SetHealth(currentHealth,maxHealth); 
         armorBar.SetArmor(currentArmor,maxArmor);
         if(currentHealth<=0) 
         { 
             GameStats.Instance.ChangeMoney(deathReward);//money for killing the enemy
-            Debug.Log($"Got reward of {deathReward}");
+            //Debug.Log($"Got reward of {deathReward}");
             Die(); 
         }
     }

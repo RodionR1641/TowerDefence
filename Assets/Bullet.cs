@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
             if (capsule != null)
             {
                 GameObject enemy = collision.gameObject;
-                Debug.Log($"Hit enemy capsule collider on {enemy.name}, weapon damage = {weaponDamage}");
+                //Debug.Log($"Hit enemy capsule collider on {enemy.name}, weapon damage = {weaponDamage}");
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
                 if(enemyController!=null){
                     Hit(enemyController);

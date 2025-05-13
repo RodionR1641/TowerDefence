@@ -107,14 +107,17 @@ public class TurretManager : MonoBehaviour
     //turret type shoud match the materials list for this game object
     public void SetTurretPlace(GameObject turretPrefab){
         int currentTurretNum = GameStats.Instance.GetCurrentNumTurrets();
+
+        int costToCheck = turretPrefab.GetComponent<TurretController>().GetSummonCost();
         //only can select if have enough money
-        if(turret == null && (GameStats.Instance.GetCurrentMoney() >= summonCost) && currentTurretNum < GameStats.maxNumTurrets)
+        Debug.Log($"current money = {GameStats.Instance.GetCurrentMoney()}, summon cost = {costToCheck}");
+        if(turret == null && (GameStats.Instance.GetCurrentMoney() >= costToCheck) && currentTurretNum < GameStats.maxNumTurrets)
         {   
+            Debug.Log("MADE TURRET");
             turret = Instantiate(turretPrefab, Vector3.zero, Quaternion.identity);
             GetTurretInfo();
             currentTurretRenderer = turret.GetComponent<Renderer>();
             UpdateTurretColor(false); // Start as invalid
-
         }
     }
 
@@ -125,7 +128,7 @@ public class TurretManager : MonoBehaviour
         currentTurretRangeRenderer = turretController.GetRangeIndicator().GetComponent<Renderer>();
         
         chosenTurretType = turretController.GetTurretType();
-        Debug.Log($"Turret type = {chosenTurretType}");
+        //Debug.Log($"Turret type = {chosenTurretType}");
         summonCost = turretController.GetSummonCost();
     }
 }

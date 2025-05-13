@@ -66,8 +66,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d7b44198dc7f55447a50213dca40b4fa, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -259,15 +259,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 15
-  fireRate: 0.02
+  fireRate: 0.03
   firePoint: {fileID: 1434292509307695786}
-  weaponDamage: 1.5
+  weaponDamage: 1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
   turretType: 0
   rangeIndicator: {fileID: 6621970111328779739}
-  rotationSpeed: 10000
+  summonCost: 20
+  upgradeCost: 15
+  sellReward: 5
+  upgradeStats:
+  - 0.2
+  - -0.15
   laserWidth: 0.4
   laserMaterial: {fileID: 2100000, guid: 34b4349f9427a4f4486740e14f0096f5, type: 2}
 --- !u!1 &1526675890412818783
@@ -844,15 +849,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.94716984, g: 0.876861, b: 0.09114274, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: b5362690ecbe59d46bf7a729d8aff9da, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

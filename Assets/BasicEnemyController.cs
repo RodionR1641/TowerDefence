@@ -10,7 +10,7 @@ public class BasicEnemyController : EnemyController
         if(currentHealth<=0) 
         { 
             GameStats.Instance.ChangeMoney(deathReward);//money for killing the enemy
-            Debug.Log($"Got reward of {deathReward}");
+            //Debug.Log($"Got reward of {deathReward}");
             Die(); 
         }
     }

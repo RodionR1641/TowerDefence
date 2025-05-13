@@ -601,9 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd013e0b725590468b27bb627ef77ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaDamageRange: 15
-  speed: 10
-  weaponDamage: 30
+  areaDamageRange: 20
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64

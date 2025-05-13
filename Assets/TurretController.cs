@@ -11,16 +11,15 @@ public class TurretController : MonoBehaviour
     [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected int turretType = 0; //turret type is just for denoting that this is e.g. a laser turret
     [SerializeField] protected GameObject rangeIndicator;//circle indicating the range the turret can shoot
+    [SerializeField] protected int summonCost = 10;
+    [SerializeField] protected int upgradeCost = 15;
+    [SerializeField] protected int sellReward = 5;//how much money you get back by selling the turret
+    [SerializeField] protected List<float> upgradeStats = new List<float> {1f,-0.15f};//upgrades: weaponDamage, fireRate by appending these values
     protected float nextFire;
-    public float rotationSpeed=10000.0f;
     protected Transform target;
     protected bool placed = false;
-    protected int summonCost = 10;
     protected float shortestDistance;
     protected bool upgraded = false;//keep track of whether this turret has already been upgraded or not
-    protected int upgradeCost = 15;
-    protected List<float> upgradeStats = new List<float> {1f,-0.15f};//upgrades: weaponDamage, fireRate by appending these values
-    protected int sellReward = 5;//how much money you get back by selling the turret
     protected TurretCanvas turretCanvas;
 
 
@@ -67,7 +66,7 @@ public class TurretController : MonoBehaviour
     public void SellTurret(){
         GameStats.Instance.ChangeMoney(sellReward);
         GameStats.Instance.RemoveTurret();
-        Debug.Log($"Current Turret Num = {GameStats.Instance.GetCurrentNumTurrets()}");
+        //Debug.Log($"Current Turret Num = {GameStats.Instance.GetCurrentNumTurrets()}");
         
         Destroy(gameObject);
     }

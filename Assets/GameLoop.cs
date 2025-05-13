@@ -10,6 +10,7 @@ public class GameLoop : MonoBehaviour
     [SerializeField] private GameObject miniBossEnemyPrefab;
     [SerializeField] private GameObject spawnPointRight;
     [SerializeField] private GameObject spawnPointLeft;
+    [SerializeField] private TMP_Text waveText; 
     public Waypoint startingWaypointRight;
     public Waypoint startingWaypointLeft;
 
@@ -35,15 +36,15 @@ public class GameLoop : MonoBehaviour
     void InitialiseWaves(){
         enemyWaves.Add(new Dictionary<string, float>
         {
-            { "minEnemies", 5 },
-            { "maxEnemies", 10 },
+            { "minEnemies", 4 },
+            { "maxEnemies", 4 },
             { "spawnRate", 5 },
             { "enemySpeed", 3 },
-            { "waveCompletionReward", 5},
+            { "waveCompletionReward", 10},
             {"leftSideEnemies",0}, //chance of an enemy spawning at the left side of map
             {"armorEnemyChance",0},
-            {"burstMinEnemies",2},
-            {"burstMaxEnemies",3},
+            {"burstMinEnemies",4},
+            {"burstMaxEnemies",5},
             {"burstDelayModifier",0.6f},
             {"miniBoss",0} //if 1 -> miniboss 
 
@@ -51,14 +52,29 @@ public class GameLoop : MonoBehaviour
 
         enemyWaves.Add(new Dictionary<string, float>
         {
-            { "minEnemies", 10 },
-            { "maxEnemies", 15 },
-            { "spawnRate", 5 },
-            { "enemySpeed", 3 },
+            { "minEnemies", 5 },
+            { "maxEnemies", 6 },
+            { "spawnRate", 4 },
+            { "enemySpeed", 3.5f },
             { "waveCompletionReward", 10},
             {"leftSideEnemies",0.3f},
             {"armorEnemyChance",0},
-            {"burstMinEnemies",5},
+            {"burstMinEnemies",4},
+            {"burstMaxEnemies",5},
+            {"burstDelayModifier",0.3f},
+            {"miniBoss",0}
+        });
+
+        enemyWaves.Add(new Dictionary<string, float>
+        {
+            { "minEnemies", 6 },
+            { "maxEnemies", 8 },
+            { "spawnRate", 4 },
+            { "enemySpeed", 4 },
+            { "waveCompletionReward", 15},
+            {"leftSideEnemies",0.4f},
+            {"armorEnemyChance",0.3f},
+            {"burstMinEnemies",6},
             {"burstMaxEnemies",7},
             {"burstDelayModifier",0.3f},
             {"miniBoss",0}
@@ -66,53 +82,37 @@ public class GameLoop : MonoBehaviour
 
         enemyWaves.Add(new Dictionary<string, float>
         {
-            { "minEnemies", 15 },
-            { "maxEnemies", 20 },
-            { "spawnRate", 4 },
-            { "enemySpeed", 4 },
-            { "waveCompletionReward", 5},
-            {"leftSideEnemies",0.4f},
-            {"armorEnemyChance",0.3f},
-            {"burstMinEnemies",6},
-            {"burstMaxEnemies",8},
-            {"burstDelayModifier",0.3f},
-            {"miniBoss",0}
-        });
-
-        enemyWaves.Add(new Dictionary<string, float>
-        {
-            { "minEnemies", 20 },
-            { "maxEnemies", 23 },
+            { "minEnemies", 8 },
+            { "maxEnemies", 10 },
             { "spawnRate", 3 },
             { "enemySpeed", 4 },
             { "waveCompletionReward", 15},
             {"leftSideEnemies",0.3f},
             {"armorEnemyChance",0.4f},
             {"burstMinEnemies",8},
-            {"burstMaxEnemies",10},
-            {"burstDelayModifier",0.2f},
+            {"burstMaxEnemies",8},
+            {"burstDelayModifier",0.3f},
             {"miniBoss",1}
         });
 
         enemyWaves.Add(new Dictionary<string, float>
         {
-            { "minEnemies", 23 },
-            { "maxEnemies", 26 },
+            { "minEnemies", 12 },
+            { "maxEnemies", 12 },
             { "spawnRate", 3 },
             { "enemySpeed", 4.5f },
             { "waveCompletionReward", 10},
             {"leftSideEnemies",0.5f},
-            {"armorEnemyChance",0.7f},
+            {"armorEnemyChance",0.6f},
             {"burstMinEnemies",10},
             {"burstMaxEnemies",12},
-            {"burstDelayModifier",0.2f},
+            {"burstDelayModifier",0.25f},
             {"miniBoss",1}
         });
     }
 
 
     private IEnumerator WaveScheduler(){
-
         //wait a bit before starting waves to start the game
         yield return new WaitForSeconds(waveCooldown*2);
 
@@ -135,19 +135,21 @@ public class GameLoop : MonoBehaviour
 
         }
         Debug.Log("WAVES: Waves Completed");
-        //TODO: can implement a Game Finish code here  
+        GameStats.Instance.EndGame(true);//won game
     }
 
 
     private IEnumerator SpawnWave(){
         Dictionary<string,float> waveData = enemyWaves[currentWave];
         int numEnemies = Random.Range((int)waveData["minEnemies"],(int)waveData["maxEnemies"]+1);
-        Debug.Log($"WAVES: Starting wave {currentWave} with {numEnemies} enemies");
+        //Debug.Log($"WAVES: Starting wave {currentWave+1} with {numEnemies} groups of enemies");
 
         //dynamic wave phases
         int burstSize = Random.Range(3,5);//number of enemies spawned in a "burst"  
         float burstDelay = waveData["spawnRate"] * waveData["burstDelayModifier"];
         float cooldownTime = Random.Range(2f,5f);
+
+        waveText.SetText($"Wave {currentWave+1} - Number Enemy Groups = {numEnemies}");
 
         if(waveData["miniBoss"] == 1){
             SpawnMiniBoss(waveData);
@@ -214,7 +216,6 @@ public class GameLoop : MonoBehaviour
     //a way to link the enemy dying code of Enemy class and wave manager
     void HandleEnemyDeath(EnemyController enemy){
         enemy.OnEnemyDied -= HandleEnemyDeath; //unscubscribe
-        Debug.Log("WAVES: Removing enemy");
         activeEnemies.Remove(enemy);
     }
 }
