@@ -1437,9 +1437,9 @@ GameObject:
   m_Component:
   - component: {fileID: 160866022}
   - component: {fileID: 160866021}
-  - component: {fileID: 160866024}
   - component: {fileID: 160866026}
   - component: {fileID: 160866025}
+  - component: {fileID: 160866027}
   m_Layer: 3
   m_Name: GameManager
   m_TagString: Untagged
@@ -1486,26 +1486,6 @@ Transform:
   - {fileID: 1193314825}
   m_Father: {fileID: 623328115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &160866024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160866020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e2b990ceef1e6345967f7b451892287, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseHealth: 15
-  currentMoney: 20
-  moneyText: {fileID: 1582545477}
-  healthText: {fileID: 1445731376}
-  gameOverPanel: {fileID: 1985000072}
-  gameEndText: {fileID: 1790417997}
-  turretCountRemainingText: {fileID: 705314086}
-  specialAbilityRemainingText: {fileID: 515138731}
 --- !u!114 &160866025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1552,6 +1532,26 @@ MonoBehaviour:
   invalidMaterial: {fileID: 2100000, guid: 0c75ef045ff22a84d9ca85113d95c5b4, type: 2}
   validMaterialRange: {fileID: 2100000, guid: 4a179a82669bc7447acc65490de0e4b9, type: 2}
   invalidMaterialRange: {fileID: 2100000, guid: 317b496309b81224891331fa5037959f, type: 2}
+--- !u!114 &160866027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160866020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e2b990ceef1e6345967f7b451892287, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseHealth: 15
+  currentMoney: 20
+  moneyText: {fileID: 1582545477}
+  healthText: {fileID: 1445731376}
+  gameOverPanel: {fileID: 1985000072}
+  gameEndText: {fileID: 1790417997}
+  turretCountRemainingText: {fileID: 705314086}
+  specialAbilityRemainingText: {fileID: 1230880665}
 --- !u!1 &188787403
 GameObject:
   m_ObjectHideFlags: 0
@@ -3072,15 +3072,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e16af5cf60e0d744a2fa54a671f62b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  borderThickness: 10
-  scrollSpeed: 5
-  minY: 40
-  maxY: 80
-  minX: -50
-  maxX: 50
-  minZ: -60
-  maxZ: 60
 --- !u!114 &334273150 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6311536787739480080, guid: 4cf609523e604e644b5b08bf6af3773d, type: 3}
@@ -7191,7 +7182,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 160866024}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameStats, Assembly-CSharp
         m_MethodName: ReturnToStart
         m_Mode: 1

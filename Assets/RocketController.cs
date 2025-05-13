@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 
+//keeps track of rocket launcher turret mechanics
 public class RocketController : TurretController
 {
     public GameObject rocketPrefab;
@@ -32,7 +32,7 @@ public class RocketController : TurretController
         }
     }
 
-    //instantiate a bullet
+    //instantiate a rocket to fire at enemies
     private void FireBolt(){        
         //only fire within range
         if (shortestDistance <= range)

@@ -1,12 +1,13 @@
 using UnityEngine;
 
+//responsible for controlling the enemy movement, damage
 public abstract class EnemyController : MonoBehaviour
 {
     public Waypoint waypoint;
     [SerializeField] protected double maxHealth = 100;
     protected UnityEngine.AI.NavMeshAgent agent; 
-    [SerializeField] protected float deathReward = 0.5f;
-    [SerializeField] protected int baseDamage = 2;
+    [SerializeField] protected float deathReward = 0.5f; //money reward for killing this enemy
+    [SerializeField] protected int baseDamage = 2; //how much damage it does when reaching end of map to base
     protected double currentHealth = 100;
     public System.Action<EnemyController> OnEnemyDied;
 
@@ -22,6 +23,7 @@ public abstract class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //move on to the next waypoint once close enough
         if (!agent.pathPending && agent.remainingDistance < 3f) 
         { 
             if(waypoint.nextWaypoint!=null) 

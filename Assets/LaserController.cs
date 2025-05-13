@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//responsible for managing laser turret
 public class LaserController: TurretController
 {
     private LineRenderer laser;
@@ -55,13 +56,15 @@ public class LaserController: TurretController
         laser.SetPosition(1, target.position);
     }
 
+
+    //laser does continous damage to the enemy, achieved by low fire rate and low damage
     void FireLaser()
     {
         laser.enabled = true;
 
         Vector3 rayOrigin = firePoint.position;
         Vector3 rayDirection = (target.position - firePoint.position).normalized;
-        
+        //check if raycast has hit anything that has enemy layer
         if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, range,enemyLayer))
         {
             //Debug.Log($"Hit: {hit.collider.name} at {hit.point} by damage = {weaponDamage}");

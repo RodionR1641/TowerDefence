@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//tracks the waypoint structure, linked list to go to next waypoints 
 public class Waypoints : MonoBehaviour
 {
     public static Transform[] waypoints;

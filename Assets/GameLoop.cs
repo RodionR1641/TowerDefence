@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 
+//repsonsible for wave scheduling and managing the gameplay progression
 public class GameLoop : MonoBehaviour
 {
     [SerializeField] private GameObject baseEnemyPrefab;
@@ -18,7 +19,7 @@ public class GameLoop : MonoBehaviour
 
     private int currentWave = 0;
 
-    private float waveCooldown = 2f; //cooldown between waves
+    private float waveCooldown = 4f; //cooldown between waves
     private float miniBossCooldown = 10f;//how much to wait after spawning miniboss and before spawning next enemies
 
     //A list per wave, stores the minEnemies,maxEnemies, spawnRate, enemySpeed
@@ -32,20 +33,18 @@ public class GameLoop : MonoBehaviour
         StartCoroutine(WaveScheduler());
     }
 
-
+    //list of stats related to waves
     void InitialiseWaves(){
         enemyWaves.Add(new Dictionary<string, float>
         {
-            { "minEnemies", 4 },
+            { "minEnemies", 4 }, //min and max here are for number of enemy burst groups
             { "maxEnemies", 4 },
             { "spawnRate", 5 },
             { "enemySpeed", 3 },
             { "waveCompletionReward", 10},
             {"leftSideEnemies",0}, //chance of an enemy spawning at the left side of map
             {"armorEnemyChance",0},
-            {"burstMinEnemies",4},
-            {"burstMaxEnemies",5},
-            {"burstDelayModifier",0.6f},
+            {"burstDelayModifier",0.6f}, //time between each enemy spawning inside the burst
             {"miniBoss",0} //if 1 -> miniboss 
 
         });
@@ -59,8 +58,6 @@ public class GameLoop : MonoBehaviour
             { "waveCompletionReward", 10},
             {"leftSideEnemies",0.3f},
             {"armorEnemyChance",0},
-            {"burstMinEnemies",4},
-            {"burstMaxEnemies",5},
             {"burstDelayModifier",0.3f},
             {"miniBoss",0}
         });
@@ -74,8 +71,6 @@ public class GameLoop : MonoBehaviour
             { "waveCompletionReward", 15},
             {"leftSideEnemies",0.4f},
             {"armorEnemyChance",0.3f},
-            {"burstMinEnemies",6},
-            {"burstMaxEnemies",7},
             {"burstDelayModifier",0.3f},
             {"miniBoss",0}
         });
@@ -89,8 +84,6 @@ public class GameLoop : MonoBehaviour
             { "waveCompletionReward", 15},
             {"leftSideEnemies",0.3f},
             {"armorEnemyChance",0.4f},
-            {"burstMinEnemies",8},
-            {"burstMaxEnemies",8},
             {"burstDelayModifier",0.3f},
             {"miniBoss",1}
         });
@@ -104,14 +97,14 @@ public class GameLoop : MonoBehaviour
             { "waveCompletionReward", 10},
             {"leftSideEnemies",0.5f},
             {"armorEnemyChance",0.6f},
-            {"burstMinEnemies",10},
-            {"burstMaxEnemies",12},
             {"burstDelayModifier",0.25f},
             {"miniBoss",1}
         });
     }
 
 
+    //game logic is as this: spawn a Wave. Then check until all enemies have died, get reward for wave and wait a bit before
+    //starting next wave
     private IEnumerator WaveScheduler(){
         //wait a bit before starting waves to start the game
         yield return new WaitForSeconds(waveCooldown*2);
@@ -135,10 +128,11 @@ public class GameLoop : MonoBehaviour
 
         }
         Debug.Log("WAVES: Waves Completed");
-        GameStats.Instance.EndGame(true);//won game
+        GameStats.Instance.EndGame(true);//won game once all waves done
     }
 
-
+    //spawn a random number of enemies and bursts of enemies in the wave. Enemies spawn quickly in bursts, then there
+    // is a cooldown period until next burst
     private IEnumerator SpawnWave(){
         Dictionary<string,float> waveData = enemyWaves[currentWave];
         int numEnemies = Random.Range((int)waveData["minEnemies"],(int)waveData["maxEnemies"]+1);
@@ -158,18 +152,19 @@ public class GameLoop : MonoBehaviour
 
         for(int i=0;i<numEnemies;i++){
 
-            //burst
+            //burst time
             for(int j=0;j<burstSize;j++){
                 SpawnEnemy(waveData);
                 yield return new WaitForSeconds(burstDelay);
             }
-            yield return new WaitForSeconds(cooldownTime);
+            yield return new WaitForSeconds(cooldownTime); //cooldown between waves
             
             burstSize = Random.Range(3,5);
             cooldownTime = Random.Range(2f,4f);
         }
     }
 
+    //spawn an enemy with a chance of left or right side
     void SpawnEnemy(Dictionary<string,float> waveData) 
     { 
         //randomly choose starting point
@@ -209,7 +204,7 @@ public class GameLoop : MonoBehaviour
         EnemyController enemy = enemyObject.GetComponent<EnemyController>();
         enemy.waypoint = startingWaypoint;
         enemy.OnEnemyDied += HandleEnemyDeath; //subsribe to the event of death 
-        enemy.SetSpeed(waveData["enemySpeed"]);
+        enemy.SetSpeed(waveData["enemySpeed"]); //waves vary the speed of enemies
         activeEnemies.Add(enemy);
     }
 

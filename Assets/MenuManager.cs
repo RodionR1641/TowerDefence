@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//code to move between scenes from menu
 public class MenuManager : MonoBehaviour
 {
 

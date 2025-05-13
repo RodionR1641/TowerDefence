@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
+//canvas responsible for upgrading and selling turrets
 public class TurretCanvas : MonoBehaviour
 {    
     [SerializeField] GameObject upgradeButton;
@@ -9,14 +9,14 @@ public class TurretCanvas : MonoBehaviour
     private TMP_Text upgradePriceText;
     private Vector3 fixedPosition;
     private bool fixedPositionSet = false;
-    private Quaternion fixedRotation;
+    private Quaternion fixedRotation; //make sure it never rotates when the turret rotates to face enemies
     private Canvas canvas;
 
     void Start()
     {
         fixedRotation = transform.rotation;
     }
-
+       
     void Awake()
     {
         canvas = GetComponent<Canvas>();
@@ -24,6 +24,7 @@ public class TurretCanvas : MonoBehaviour
         upgradePriceText = upgradePrice.GetComponent<TMP_Text>();   
     }
 
+    //make sure to always alter rotation back to original position
     void LateUpdate()
     {
         if(fixedPositionSet){
@@ -42,6 +43,7 @@ public class TurretCanvas : MonoBehaviour
         fixedPosition = transform.position;
     }
 
+    //once turret upgraded -> hide it so player doesnt think they can upgrade again
     public void HideUpgradeButton()
     {
         upgradeButton.SetActive(false);

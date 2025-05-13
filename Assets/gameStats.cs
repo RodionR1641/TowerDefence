@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Class responsible for the base health and economy mechanics. It is a singleton
+// Class responsible for the base health,UI element changes and economy mechanics. It is a singleton
 public class GameStats : MonoBehaviour
 {
     [SerializeField] private int baseHealth = 10;
@@ -15,10 +15,10 @@ public class GameStats : MonoBehaviour
     [SerializeField] private TextMeshProUGUI specialAbilityRemainingText;
     [SerializeField] public const int maxNumTurrets = 7;
     [SerializeField] public const int maxNumAbilities = 2;
-    private int currentNumTurrets = 0;
-    private int currentNumAbilities = 0;//number of times the ability was useds
+    private int currentNumTurrets = 0; //number of turrets already placed on map
+    private int currentNumAbilities = 0;//number of times the ability was used
 
-    private static GameStats _instance;
+    private static GameStats _instance; //singleton
     public static GameStats Instance {get {return _instance;}}
 
 
@@ -30,6 +30,7 @@ public class GameStats : MonoBehaviour
         specialAbilityRemainingText.SetText($"Current remaining ability uses: {maxNumAbilities}");
     }
 
+    //singleton pattern
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -53,6 +54,7 @@ public class GameStats : MonoBehaviour
         return currentMoney;
     }
 
+    //ends the game once run out of health
     public void ChangeHealth(int health){
         baseHealth += health;
         healthText.SetText($"Health {baseHealth}");
@@ -62,6 +64,7 @@ public class GameStats : MonoBehaviour
         }
     }
 
+    //either tells the player they lost or won, can go back to menu now
     public void EndGame(bool win){
         Time.timeScale = 0f; //pause game
         gameOverPanel.SetActive(true);
@@ -80,11 +83,13 @@ public class GameStats : MonoBehaviour
         return baseHealth;
     }
 
+    //registering that an ability was used
     public void RegisterAbility(){
         currentNumAbilities++;
         specialAbilityRemainingText.SetText($"Current remaining ability uses: {maxNumAbilities-currentNumAbilities}");
     }
 
+    //keep track of turret count in these 2 functions
     public void AddTurret(){
         currentNumTurrets++;
         turretCountRemainingText.SetText($"Current remaining turrets allowed: {maxNumTurrets-currentNumTurrets}");

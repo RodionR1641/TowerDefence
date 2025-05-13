@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//similar to bullet but does area damage
 public class Rocket : Bullet
 {
     [SerializeField] private float areaDamageRange = 5f;
@@ -28,7 +29,7 @@ public class Rocket : Bullet
         //first damage the primary enemy we hit
 
         primaryEnemy.TakeDamage(weaponDamage);
-
+        //overlap sphere checks for every collision that intersects the range of the area damage
         Collider[] hitAreaColliders = Physics.OverlapSphere(impactPoint,areaDamageRange,enemyLayers);
             
         //everyone in the radius should get hit, area damage

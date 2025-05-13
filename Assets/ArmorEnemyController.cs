@@ -4,7 +4,7 @@ public class ArmorEnemyController : EnemyController
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] ArmorBar armorBar;
-    [SerializeField] private double maxArmor=100;
+    [SerializeField] private double maxArmor=100; //similar to health
     private double currentArmor;
     private double damageModifierArmor = 0.2;//only take 20% damage if armor is present
     
@@ -15,6 +15,7 @@ public class ArmorEnemyController : EnemyController
     }
 
 
+    //both armor and health damage is affected if there is an armor present or not
     public override void TakeDamage(float damage,bool armorBolt=false){
         double damageModifier = 1;
         if(currentArmor>0){

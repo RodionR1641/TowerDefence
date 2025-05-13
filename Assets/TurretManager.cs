@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-//class responsible for managing the turret placement and costs
+//class responsible for managing the turret placement on map and costs
 public class TurretManager : MonoBehaviour
 {
     public LayerMask groundLayer;
@@ -27,6 +27,8 @@ public class TurretManager : MonoBehaviour
         mainCamera = Camera.main;   
     }
 
+    //checks if can place the turret on the current map or not. cant place turrets on enemy path and on other turrets or outs
+    //ide the map
     void Update()
     {
         if(turret != null){
@@ -61,6 +63,7 @@ public class TurretManager : MonoBehaviour
         }   
     }
 
+    //check that the are is neither another turret or a path for enemies to go on
     bool IsValid(Vector3 position){
         Collider[] hitColliders = Physics.OverlapSphere(position, 2.0f); 
         foreach(Collider col in hitColliders) 
@@ -73,12 +76,14 @@ public class TurretManager : MonoBehaviour
         return true;
     }
 
+    //updates visually to tell player if they can place the turret at said location or no
     void UpdateTurretColor(bool isValid)
     {
         currentTurretRenderer.material = isValid ? validMaterial : invalidMaterial;
         currentTurretRangeRenderer.material = isValid ? validMaterialRange : invalidMaterialRange;
     }
 
+    //finilise placement and fix position of turret. it can now fire at enemies
     void PlaceTurret()
     {
         // Deduct money and finalize placement
@@ -104,6 +109,7 @@ public class TurretManager : MonoBehaviour
         }
     }
 
+    //instantiates said turret so the player can place it on the map
     //turret type shoud match the materials list for this game object
     public void SetTurretPlace(GameObject turretPrefab){
         int currentTurretNum = GameStats.Instance.GetCurrentNumTurrets();
@@ -121,6 +127,7 @@ public class TurretManager : MonoBehaviour
         }
     }
 
+    //get additional information about turret components
     private void GetTurretInfo(){
         turretController = turret.GetComponent<TurretController>();
         turretRangeIndicator = turretController.GetRangeIndicator();

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//manages the fire area damage ability 
 public class SpecialAbilityManager : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayer;
@@ -15,7 +16,7 @@ public class SpecialAbilityManager : MonoBehaviour
         mainCamera = Camera.main; 
     }
 
-    // Update is called once per frame
+    // tracks the circle over the mouse position, so it follows the mouse
     void Update()
     {
         if(abilityCircle!=null){
@@ -35,6 +36,7 @@ public class SpecialAbilityManager : MonoBehaviour
                     Debug.Log("Used Ability");
                     ActivateAbility();
                 }
+                //cancel via right click
                 else if(Input.GetMouseButton(1)){
                     Debug.Log("Cancelled ability");
                     Destroy(abilityCircle);
@@ -44,10 +46,11 @@ public class SpecialAbilityManager : MonoBehaviour
         }
     }
 
+    //check if have enough money and then activate said ability
     private void ActivateAbility(){
         if(GameStats.Instance.GetCurrentMoney() >= summonCost){
             GameStats.Instance.ChangeMoney(-summonCost);
-
+            //check for all colliders hit within the area
             Collider[] hitAreaColliders = Physics.OverlapSphere(abilityCircle.transform.position,areaDamageRange,enemyLayers);
 
             foreach (Collider enemyCollider in hitAreaColliders){
@@ -61,6 +64,7 @@ public class SpecialAbilityManager : MonoBehaviour
         }
     }
 
+    //if have enough money, set the ability circle on the map
     public void SetActivityCircle(GameObject areaCirclePrefab){
         int currentTurretNum = GameStats.Instance.GetCurrentNumAbilities();
         //only can select if have enough money
@@ -68,7 +72,7 @@ public class SpecialAbilityManager : MonoBehaviour
             currentTurretNum < GameStats.maxNumAbilities)
         {   
             abilityCircle = Instantiate(areaCirclePrefab, Vector3.zero, areaCirclePrefab.transform.rotation);
-
+            //set the size based on area damage
             SpriteRenderer spriteRenderer = abilityCircle.GetComponent<SpriteRenderer>();
 
             float spriteWidth = spriteRenderer.sprite.bounds.size.x;//native size

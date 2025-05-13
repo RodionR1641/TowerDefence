@@ -22,6 +22,7 @@ public class Bullet : MonoBehaviour
         transform.Translate(direction.normalized * distanceFrame, Space.World);
     }
 
+    //check for collisions with enemies
     void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Enemy"))
@@ -40,7 +41,7 @@ public class Bullet : MonoBehaviour
     }
 
     void Hit(EnemyController enemyController){
-        //will need to do area damage here
+        //just a simple hit on a single enemy
         enemyController.TakeDamage(weaponDamage,true);
         Destroy(gameObject);
     }

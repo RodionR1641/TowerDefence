@@ -1,9 +1,9 @@
-using UnityEngine;
 
 public class BasicEnemyController : EnemyController
 {   
     public HealthBar healthBar;
 
+    //takes damage based on weapon
     public override void TakeDamage(float damage,bool armorBolt=false){
         currentHealth -= damage; 
         healthBar.SetHealth(currentHealth, maxHealth); 

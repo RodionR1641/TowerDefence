@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//responsible for general turret behaviour like tracking enemies
 public class TurretController : MonoBehaviour
 {
     [SerializeField] protected float range = 15.0f;
@@ -11,14 +12,14 @@ public class TurretController : MonoBehaviour
     [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected int turretType = 0; //turret type is just for denoting that this is e.g. a laser turret
     [SerializeField] protected GameObject rangeIndicator;//circle indicating the range the turret can shoot
-    [SerializeField] protected int summonCost = 10;
+    [SerializeField] protected int summonCost = 10; //price to just place the turret on map
     [SerializeField] protected int upgradeCost = 15;
     [SerializeField] protected int sellReward = 5;//how much money you get back by selling the turret
     [SerializeField] protected List<float> upgradeStats = new List<float> {1f,-0.15f};//upgrades: weaponDamage, fireRate by appending these values
-    protected float nextFire;
+    protected float nextFire; //tracks when it can fire again
     protected Transform target;
     protected bool placed = false;
-    protected float shortestDistance;
+    protected float shortestDistance; //shortest enemy in vicinity
     protected bool upgraded = false;//keep track of whether this turret has already been upgraded or not
     protected TurretCanvas turretCanvas;
 
@@ -28,6 +29,8 @@ public class TurretController : MonoBehaviour
         turretCanvas = gameObject.GetComponentInChildren<TurretCanvas>();
     }
 
+
+    //continuosly search for enemy closest to you, then instantly turn to face them
     public void FindNearestEnemy(){
         EnemyController[] enemies = FindObjectsOfType<EnemyController>();
 
@@ -42,7 +45,7 @@ public class TurretController : MonoBehaviour
                 shortestDistance = distanceToEnemy;
                 nearestEnemy = enemy;
             }
-
+            //only look at enemy if they are within range
             if(nearestEnemy != null && shortestDistance <= range){
                 target = nearestEnemy.transform;
                 transform.rotation = Quaternion.LookRotation(target.position - transform.position);
@@ -53,6 +56,7 @@ public class TurretController : MonoBehaviour
         }
     }
 
+    //check if can upgrade and if it hasnt been before - alters damage and fire rate
     public void UpgradeTurret(){
         if(GameStats.Instance.GetCurrentMoney() >= upgradeCost && upgraded == false){
             weaponDamage += upgradeStats[0];
@@ -62,7 +66,7 @@ public class TurretController : MonoBehaviour
             turretCanvas.HideUpgradeButton();//make sure user doesn't think they can upgrade again
         }
     }
-
+    //sell for a fraction of build price
     public void SellTurret(){
         GameStats.Instance.ChangeMoney(sellReward);
         GameStats.Instance.RemoveTurret();
@@ -71,7 +75,7 @@ public class TurretController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    //if press,set the canvas to be active or inactive depending on if it was previously active
+    //if press on the turret prefab ,set the canvas to be active or inactive depending on if it was previously active
     protected void OnMouseDown()
     {
         turretCanvas.EnableCanvas();
@@ -84,6 +88,7 @@ public class TurretController : MonoBehaviour
     public float GetRange(){
         return range;
     }
+    //responsible for showing how much range the turret has
     public GameObject GetRangeIndicator(){
         return rangeIndicator;
     }

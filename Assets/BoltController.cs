@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using NUnit.Framework;
-using Unity.IntegerTime;
 using UnityEngine;
 
 public class BoltController : TurretController
@@ -14,7 +11,7 @@ public class BoltController : TurretController
         nextFire = fireRate;
     }
 
-    // Update is called once per frame
+    // check if its time to fire and there is a target
     void Update()
     {
         if(placed){
