@@ -47,7 +47,7 @@ public class GameStats : MonoBehaviour
     //get money for killing enemies and completing waves
     public void ChangeMoney(float money){
         currentMoney += money;
-        moneyText.SetText($"$ {currentMoney}");
+        moneyText.SetText($"£ {currentMoney}");
     }
 
     public float GetCurrentMoney(){
